@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://dh0oj81pufivs"]
 
 [ext_resource type="Script" uid="uid://bkwk40ybs8kgm" path="res://example.gd" id="1_jdh55"]
+[ext_resource type="Texture2D" uid="uid://c381pnygc4gho" path="res://stone.png" id="2_8lvy3"]
 [ext_resource type="Script" uid="uid://pn50c5mge7s7" path="res://voxel_chunk.gd" id="2_n51mc"]
 [ext_resource type="Script" uid="uid://cu17qx32d5ilr" path="res://camera_controller.gd" id="2_wcwec"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcwec"]
-albedo_color = Color(0.54353905, 0.27883306, 0.6904301, 1)
+albedo_texture = ExtResource("2_8lvy3")
 texture_filter = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_8lvy3"]
@@ -22,13 +23,11 @@ material_override = SubResource("StandardMaterial3D_wcwec")
 script = ExtResource("2_n51mc")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=47502016]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.167005, 3.546341, -9.976265)
-light_energy = 5.03
-shadow_enabled = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.167005, 3.546341, -12.885862)
 omni_range = 43.170856
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1750879326]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 mesh = SubResource("BoxMesh_8lvy3")
 skeleton = NodePath("../Camera3D")
 
