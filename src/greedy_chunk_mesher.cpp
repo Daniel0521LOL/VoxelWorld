@@ -4,6 +4,12 @@ using namespace godot;
 
 namespace voxxel {
 
+void GreedyChunkMesher::_bind_methods() {}
+
+void GreedyChunkMesher::set_block_registry(const Ref<BlockRegistry> &p_registry) {
+    block_registry = p_registry;
+}
+
 bool GreedyChunkMesher::is_face_visible(const Ref<ChunkData> &p_data, Vector3i block_pos, Vector3i face_dir) {
     if (p_data->get_block(block_pos) == 0) {
         return false; // No face if the block itself is air
@@ -73,6 +79,7 @@ void GreedyChunkMesher::mesh_slice(SliceData &slice_data, Ref<SurfaceTool> &surf
         for (int x = 0; x < CHUNK_SIZE; x++) {
             if (slice_data.is_included(x, y)) {
                 Vector2i end = greedy_mesh_starting_from(slice_data, x, y);
+
                 if (end == NO_FACE) {
                     continue; // No face to mesh
                 }
@@ -106,44 +113,52 @@ void GreedyChunkMesher::mesh_slice(SliceData &slice_data, Ref<SurfaceTool> &surf
                     v3 = Vector3(x2, y2, offset_coord);
                     v4 = Vector3(x2, y1, offset_coord);
                 } else if (slice_data.face_dir == Directions::BACK) {
-                    // Swapped v2 and v4 assignments for CW winding
                     v1 = Vector3(x1, y1, offset_coord);
                     v2 = Vector3(x2, y1, offset_coord);
                     v3 = Vector3(x2, y2, offset_coord);
                     v4 = Vector3(x1, y2, offset_coord);
                 } else if (slice_data.face_dir == Directions::RIGHT) {
-                    // Swapped v2 and v4 assignments for CW winding
                     v1 = Vector3(offset_coord, x1, y1);
                     v2 = Vector3(offset_coord, x1, y2);
                     v3 = Vector3(offset_coord, x2, y2);
                     v4 = Vector3(offset_coord, x2, y1);
                 } else { // LEFT
-                    // Swapped v2 and v4 assignments for CW winding
                     v1 = Vector3(offset_coord, x1, y1);
                     v2 = Vector3(offset_coord, x2, y1);
                     v3 = Vector3(offset_coord, x2, y2);
                     v4 = Vector3(offset_coord, x1, y2);
                 }
 
+                uint8_t block_id = slice_data.get_block(x, y);
+                uint16_t texture_id = block_registry->get_face_texture_id(block_id, 0); // TEMPORARY: using top texture for all faces, need to implement per-face texture IDs in block registry and slice data
+                // Use R channel of vertex color to store texture ID
+                Color vertex_color = Color(texture_id / 255.0f, 1.0f, 1.0f, 1.0f);
+
                 float w = end.x - x;
                 float h = end.y - y;
                 
+                surface_tool->set_color(vertex_color);
                 surface_tool->set_normal(slice_data.face_dir);
                 surface_tool->set_uv(Vector2(0, 0));
                 surface_tool->add_vertex(v1);
+                surface_tool->set_color(vertex_color);
                 surface_tool->set_normal(slice_data.face_dir);
                 surface_tool->set_uv(Vector2(w, 0));
                 surface_tool->add_vertex(v2);
+                surface_tool->set_color(vertex_color);
                 surface_tool->set_normal(slice_data.face_dir);
                 surface_tool->set_uv(Vector2(w, h));
                 surface_tool->add_vertex(v3);
-
+                
+                surface_tool->set_color(vertex_color);
                 surface_tool->set_normal(slice_data.face_dir);
-                surface_tool->set_uv(Vector2(0, h));
+                surface_tool->set_uv(Vector2(0, 0));
                 surface_tool->add_vertex(v1);
+                surface_tool->set_color(vertex_color);
                 surface_tool->set_normal(slice_data.face_dir);
                 surface_tool->set_uv(Vector2(w, h));
                 surface_tool->add_vertex(v3);
+                surface_tool->set_color(vertex_color);
                 surface_tool->set_normal(slice_data.face_dir);
                 surface_tool->set_uv(Vector2(0, h));
                 surface_tool->add_vertex(v4);
@@ -161,7 +176,6 @@ Ref<Mesh> GreedyChunkMesher::mesh_chunk(const Ref<ChunkData> &p_data) {
             mesh_slice(slice_data, surface_tool);
         }
     }
-    surface_tool->generate_tangents();
     return surface_tool->commit();
 }
 

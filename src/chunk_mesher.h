@@ -11,7 +11,12 @@ using namespace godot;
 
 namespace voxxel {
 
-class ChunkMesher : public Object {
+class ChunkMesher : public RefCounted {
+    GDCLASS(ChunkMesher, RefCounted)
+
+protected:
+    static void _bind_methods() {}
+
 public:
     ChunkMesher() = default;
     virtual ~ChunkMesher() = default;

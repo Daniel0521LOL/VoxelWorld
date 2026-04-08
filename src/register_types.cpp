@@ -5,9 +5,15 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "example_class.h"
 #include "chunk_data.h"
 #include "chunk_node.h"
+#include "chunk_mesher.h"
+#include "basic_chunk_mesher.h"
+#include "greedy_chunk_mesher.h"
+#include "world_data.h"
+#include "voxel_finite_world.h"
+#include "block_definition.h"
+#include "block_registry.h"
 
 using namespace godot;
 
@@ -16,9 +22,15 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
-	GDREGISTER_CLASS(ExampleClass);
 	GDREGISTER_CLASS(voxxel::ChunkData);
 	GDREGISTER_CLASS(voxxel::VoxelChunk);
+	GDREGISTER_ABSTRACT_CLASS(voxxel::ChunkMesher);
+	GDREGISTER_CLASS(voxxel::BasicChunkMesher);
+	GDREGISTER_CLASS(voxxel::GreedyChunkMesher);
+	GDREGISTER_CLASS(voxxel::WorldData);
+	GDREGISTER_CLASS(voxxel::VoxelFiniteWorld);
+	GDREGISTER_CLASS(voxxel::BlockDefinition);
+	GDREGISTER_CLASS(voxxel::BlockRegistry);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

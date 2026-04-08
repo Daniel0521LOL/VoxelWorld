@@ -24,21 +24,26 @@ public:
 
     uint8_t get_block(const Vector3i &p_pos) const {
         int index = p_pos.x + (p_pos.y * CHUNK_SIZE) + (p_pos.z * CHUNK_SIZE * CHUNK_SIZE);
-        if (index < 0 || index >= (int)data.size()) {
+        if (!in_bounds(p_pos)) {
             return 0; // Return air block for out of bounds
         }
         return data[index];
     }
 
     void set_block(const Vector3i &p_pos, uint8_t block_id) {
-        int index = p_pos.x + (p_pos.y * CHUNK_SIZE) + (p_pos.z * CHUNK_SIZE * CHUNK_SIZE);
-        if (index >= 0 && index < (int)data.size()) {
+        if (in_bounds(p_pos)) {
+            int index = p_pos.x + (p_pos.y * CHUNK_SIZE) + (p_pos.z * CHUNK_SIZE * CHUNK_SIZE);
             data[index] = block_id;
         }
     }
 
 private:
     LocalVector<uint8_t> data;
+    bool in_bounds(const Vector3i &p_pos) const {
+        return p_pos.x >= 0 && p_pos.x < CHUNK_SIZE &&
+               p_pos.y >= 0 && p_pos.y < CHUNK_SIZE &&
+               p_pos.z >= 0 && p_pos.z < CHUNK_SIZE;
+    }
 };
 
 } // namespace voxxel

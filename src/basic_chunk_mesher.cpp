@@ -2,6 +2,8 @@
 
 namespace voxxel {
 
+void BasicChunkMesher::_bind_methods() {}
+
 Ref<Mesh> BasicChunkMesher::mesh_chunk(const Ref<ChunkData> &p_data) {
     if (p_data.is_null()) {
         return Ref<Mesh>();
