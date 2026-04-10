@@ -12,10 +12,13 @@ void BlockDefinition::_bind_methods() {
     ADD_PROPERTY(PropertyInfo(Variant::INT, "id"), "set_id", "get_id");
     ADD_PROPERTY(PropertyInfo(Variant::STRING, "name"), "set_name", "get_name");
 
+    ClassDB::bind_method(D_METHOD("set_texture_mode", "mode"), &BlockDefinition::set_texture_mode);
+    ClassDB::bind_method(D_METHOD("get_texture_mode"), &BlockDefinition::get_texture_mode);
+    ADD_PROPERTY(PropertyInfo(Variant::INT, "texture_mode", PROPERTY_HINT_ENUM, "SINGLE,SIX_WAY"), "set_texture_mode", "get_texture_mode");
+
     // Texture Bindings
     ADD_GROUP("Textures", "tex_");
     
-    // We bind all, but you can use _get_property_list to hide them dynamically if desired
     ClassDB::bind_method(D_METHOD("get_tex_top"), &BlockDefinition::get_tex_top);
     ClassDB::bind_method(D_METHOD("set_tex_top", "tex"), &BlockDefinition::set_tex_top);
     ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "tex_top", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_tex_top", "get_tex_top");

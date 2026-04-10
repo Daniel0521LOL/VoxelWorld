@@ -15,7 +15,6 @@ class BlockDefinition : public Resource {
 public:
     enum TextureMode {
         SINGLE,   // One texture for all sides
-        COLUMN,   // Top, Bottom, and Sides (like a Log)
         SIX_WAY   // Unique texture for every face
     };
 
@@ -46,16 +45,14 @@ public:
     void set_tex_back(const Ref<Texture2D> p_tex) { tex_back = p_tex; };
     Ref<Texture2D> get_tex_back() const { return tex_back; };
 
+    void set_texture_mode(int p_mode) { mode = static_cast<TextureMode>(p_mode); };
+    int get_texture_mode() const { return mode; };
+
     Vector<Ref<Texture2D>> get_textures() const {
         Vector<Ref<Texture2D>> textures;
         switch (mode) {
             case SINGLE:
                 textures.push_back(tex_top);
-                break;
-            case COLUMN:
-                textures.push_back(tex_top);    // Top
-                textures.push_back(tex_bottom); // Bottom
-                textures.push_back(tex_right);   // Sides (using left as representative)
                 break;
             case SIX_WAY:
                 textures.push_back(tex_top);

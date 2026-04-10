@@ -130,7 +130,21 @@ void GreedyChunkMesher::mesh_slice(SliceData &slice_data, Ref<SurfaceTool> &surf
                 }
 
                 uint8_t block_id = slice_data.get_block(x, y);
-                uint16_t texture_id = block_registry->get_face_texture_id(block_id, 0); // TEMPORARY: using top texture for all faces, need to implement per-face texture IDs in block registry and slice data
+                int face_index = 0;
+                if (slice_data.face_dir == Directions::UP) {
+                    face_index = 0;
+                } else if (slice_data.face_dir == Directions::DOWN) {
+                    face_index = 1;
+                } else if (slice_data.face_dir == Directions::FRONT) {
+                    face_index = 2;
+                } else if (slice_data.face_dir == Directions::BACK) {
+                    face_index = 3;
+                } else if (slice_data.face_dir == Directions::RIGHT) {
+                    face_index = 4;
+                } else { // LEFT
+                    face_index = 5;
+                }
+                uint16_t texture_id = block_registry->get_face_texture_id(block_id, face_index);
                 // Use R channel of vertex color to store texture ID
                 Color vertex_color = Color(texture_id / 255.0f, 1.0f, 1.0f, 1.0f);
 

@@ -14,26 +14,40 @@ void BlockRegistry::_bind_methods() {
 
 void BlockRegistry::juice_registry() {
     TypedArray<Image> texture_array = Array();
+    Vector<Ref<Texture2D>> unique_textures;
 
     for (int i = 0; i < block_definitions.size(); ++i) {
         Ref<BlockDefinition> def = block_definitions[i];
         if (def.is_valid()) {
-            print_line("Processing block definition: " + def->get_name());
-            Ref<Image> img = def->get_tex_top()->get_image();
-            if (texture_array.find(def->get_tex_top()->get_image()) == -1) {
-                texture_array.push_back(img);
-                print_line("Texture array now has " + itos(texture_array.size()) + " unique textures.");
-                print_line("Assigned texture ID " + itos(texture_array.find(img)) + " to block '" + def->get_name() + "'.");
-            }
-            int id = texture_array.find(img);
             BlockInfo info;
             info.name = def->get_name();
-            for (int j = 0; j < 6; ++j) {
-                info.texture_ids[j] = id;
+
+            Vector<Ref<Texture2D>> textures = def->get_textures();
+
+            if (def->get_texture_mode() == BlockDefinition::SINGLE) {
+                // If SINGLE mode, ensure all faces use the same texture ID
+                if (unique_textures.find(textures[0]) == -1) {
+                    unique_textures.push_back(textures[0]);
+                    texture_array.push_back(textures[0]->get_image());
+                }
+                int id = unique_textures.find(textures[0]);
+                for (int j = 0; j < 6; ++j) {
+                    info.texture_ids[j] = id;
+                }
+            } else {
+                for (int j = 0; j < 6; ++j) {
+                    if (unique_textures.find(textures[j]) == -1) {
+                        unique_textures.push_back(textures[j]);
+                        texture_array.push_back(textures[j]->get_image());
+                    }
+                    info.texture_ids[j] = unique_textures.find(textures[j]);
+                }
             }
+
             if (blocks.size() <= def->get_id()) {
                 blocks.resize(def->get_id() + 1);
             }
+
             blocks.set(def->get_id(), info);
         }
     }

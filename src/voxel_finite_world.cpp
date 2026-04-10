@@ -37,7 +37,7 @@ void VoxelFiniteWorld::generate_world(Ref<BlockRegistry> p_block_registry) {
                                 if (world_pos.y < height - 5) {
                                     chunk_data->set_block(Vector3i(bx, by, bz), 1); // Set block ID to 1 for stone block
                                 } else {
-                                    chunk_data->set_block(Vector3i(bx, by, bz), 2); // Set block ID to 2 for solid block
+                                    chunk_data->set_block(Vector3i(bx, by, bz), 3); // Set block ID to 2 for solid block
                                 }
                             }
                         }
@@ -64,14 +64,7 @@ void VoxelFiniteWorld::set_material(Ref<Material> p_material) {
 void VoxelFiniteWorld::update_material() {
     for (const KeyValue<Vector3i, VoxelChunk *> &elem : chunks) {
         VoxelChunk *chunk = elem.value;
-        
-        // Get the mesh currently assigned to the chunk
-        Ref<Mesh> mesh = chunk->get_mesh();
-
-        // Only set the material if the mesh exists and has at least one surface
-        if (mesh.is_valid() && mesh->get_surface_count() > 0) {
-            chunk->set_surface_override_material(0, material);
-        }
+        chunk->set_mesh_material(material);
     }
 }
 

@@ -25,6 +25,10 @@ public:
 
     void generate_world(Ref<BlockRegistry> p_block_registry);
 
+    Ref<WorldData> get_world_data() const {
+        return world_data;
+    } // TEMPORARY, need encapsulation later
+
 protected:
     static void _bind_methods();
 

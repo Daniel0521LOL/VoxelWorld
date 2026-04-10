@@ -31,6 +31,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(voxxel::VoxelFiniteWorld);
 	GDREGISTER_CLASS(voxxel::BlockDefinition);
 	GDREGISTER_CLASS(voxxel::BlockRegistry);
+	GDREGISTER_INTERNAL_CLASS(voxxel::RaycastResult);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

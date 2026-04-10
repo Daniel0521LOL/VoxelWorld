@@ -5,6 +5,7 @@
 #include "godot_cpp/templates/hash_map.hpp"
 #include "chunk_node.h"
 #include "chunk_data.h"
+#include "raycast_result.h"
 
 using namespace godot;
 
@@ -22,6 +23,11 @@ public:
 
     Ref<ChunkData> get_chunk(const Vector3i &p_chunk_pos);
     Ref<ChunkData> initialize_chunk(const Vector3i &p_chunk_pos);
+
+    Ref<RaycastResult> raycast(const Vector3 &p_origin, const Vector3 &p_direction, float p_max_distance);
+
+    uint8_t get_block(const Vector3i &p_global_pos);
+
 private:
     HashMap<Vector3i, Ref<ChunkData>> chunks;    
 };
