@@ -99,7 +99,7 @@ IndentCaseLabels: true
 # IndentPPDirectives: None
 # IndentExternBlock: AfterExternBlock
 # IndentRequires:  false
-IndentWidth:     4
+IndentWidth:     2
 # IndentWrappedFunctionNames: false
 # InsertTrailingCommas: None
 # JavaScriptQuotes: Leave
@@ -170,7 +170,7 @@ SpacesInLineCommentPrefix:
 # StatementMacros:
 #   - Q_UNUSED
 #   - QT_REQUIRE_VERSION
-TabWidth:        4
+TabWidth:        2
 # UseCRLF:         false
 UseTab:          Always
 # WhitespaceSensitiveMacros:
