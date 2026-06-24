@@ -2,6 +2,15 @@
 *.gen.*
 .godot/
 
+# Emacs backup files (e.g., filename.cpp~)
+*~
+
+# Emacs auto-save files (e.g., #filename.cpp#)
+\#*\#
+
+# Emacs lock files / symlinks (e.g., .#filename.cpp)
+.\#*
+
 # Ignore library files but not the gdextension file
 project/bin/*
 !project/bin/android
