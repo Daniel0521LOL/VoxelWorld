@@ -1,0 +1,3 @@
+Currently, the godot side of the code has been nuked due to bad management practices, but this also gives me the chance to backtrack some bad decisions made about the api exposed to GDScript.
+
+TODOS:

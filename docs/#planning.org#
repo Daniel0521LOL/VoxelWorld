@@ -1,0 +1,51 @@
+* VoxelWorld
+
+** TODO Change 4 indent to 2 indent
+
+use clangd i guess, after working on other projects I lost the ability to read
+cpp code in 4 indent
+
+** TODO Migrate BlockRegistry to cpp
+
+Currently, the godot side of the code has been nuked due to bad management practices,
+but this also gives me the chance to backtrack some bad decisions made about the api
+exposed to GDScript.
+
+*** TODO BlockRegistry
+*** TODO BlockRegistryJuicer
+*** TODO Custom shader that uses texture atlas outputted by BlockRegistryJuicer
+
+** TODO Move entire Voxxel pipeline to cpp internally
+
+Wire things up that were previously wired up in godot.
+Get VoxelFiniteWorld up and alive at this point
+
+*** TODO Create WorldGenerator class
+*** TODO Separate VoxelWorldMeshing into its own component.
+
+Eventually we would want VoxelWorldMeshing and WorldSimulation to be the two components
+Static world for now, it can stay dumb.
+
+*** TODO IDK Wire shit up
+
+Check again before doing this.
+
+** TODO Housekeeping
+
+Src is currently flat. Before moving forward we need to change it into a more robust
+folder structure. Will need to learn about SCons to know how do do this.
+
+** TODO Nodes -> Direct server interaction for physics and meshes
+
+VoxelChunk currently uses nodes to do this, changing this would be good prep for
+implementing multithreading.
+
+** TODO PlayerController in Godot
+
+*** TODO Freecam
+*** TODO Walker
+
+** TODO VoxelInifiniteWorld with multithreading
+
+Here be dragons, lets do the above stuff before considering how exactly to go down
+the multithreading route.
