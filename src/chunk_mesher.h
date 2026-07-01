@@ -11,6 +11,8 @@ using namespace godot;
 
 namespace voxxel {
 
+class BlockRegistry;
+
 class ChunkMesher : public RefCounted {
 	GDCLASS(ChunkMesher, RefCounted)
 
@@ -21,6 +23,7 @@ class ChunkMesher : public RefCounted {
 	ChunkMesher() = default;
 	virtual ~ChunkMesher() = default;
 
+	virtual void set_block_registry(const Ref<BlockRegistry> &p_registry) {}
 	virtual Ref<Mesh> mesh_chunk(const Ref<ChunkData> &p_data) = 0;
 };
 

@@ -2,6 +2,7 @@
 #define CHUNK_CONSTANTS_H
 
 #include "godot_cpp/core/math.hpp"
+#include "godot_cpp/variant/vector3i.hpp"
 
 using namespace godot;
 

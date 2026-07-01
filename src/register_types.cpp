@@ -10,7 +10,7 @@
 #include "block_registry.h"
 #include "chunk_data.h"
 #include "chunk_mesher.h"
-#include "chunk_node.h"
+#include "chunk_manager.h"
 #include "greedy_chunk_mesher.h"
 #include "voxel_finite_world.h"
 #include "world_data.h"
@@ -22,7 +22,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level) {
 		return;
 	}
 	GDREGISTER_CLASS(voxxel::ChunkData);
-	GDREGISTER_CLASS(voxxel::VoxelChunk);
+	GDREGISTER_CLASS(voxxel::ChunkManager);	
 	GDREGISTER_ABSTRACT_CLASS(voxxel::ChunkMesher);
 	GDREGISTER_CLASS(voxxel::BasicChunkMesher);
 	GDREGISTER_CLASS(voxxel::GreedyChunkMesher);

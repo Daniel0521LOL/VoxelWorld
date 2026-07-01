@@ -2,7 +2,6 @@
 #define WORLD_DATA_H
 
 #include "chunk_data.h"
-#include "chunk_node.h"
 #include "godot_cpp/classes/ref_counted.hpp"
 #include "godot_cpp/templates/hash_map.hpp"
 #include "raycast_result.h"

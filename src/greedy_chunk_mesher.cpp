@@ -184,10 +184,12 @@ void GreedyChunkMesher::mesh_slice(SliceData &slice_data, Ref<SurfaceTool> &surf
 Ref<Mesh> GreedyChunkMesher::mesh_chunk(const Ref<ChunkData> &p_data) {
 	Ref<SurfaceTool> surface_tool = memnew(SurfaceTool());
 	surface_tool->begin(Mesh::PRIMITIVE_TRIANGLES);
-	for (int i = 0; i < 6; i++) {
-		for (int offset = 0; offset < CHUNK_SIZE; offset++) {
-			SliceData slice_data = get_slice(p_data, offset, Directions::DIRECTIONS[i]);
-			mesh_slice(slice_data, surface_tool);
+	if (block_registry.is_valid()) {
+		for (int i = 0; i < 6; i++) {
+			for (int offset = 0; offset < CHUNK_SIZE; offset++) {
+				SliceData slice_data = get_slice(p_data, offset, Directions::DIRECTIONS[i]);
+				mesh_slice(slice_data, surface_tool);
+			}
 		}
 	}
 	return surface_tool->commit();

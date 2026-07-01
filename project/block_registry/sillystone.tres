@@ -1,0 +1,13 @@
+[gd_resource type="BlockDefinition" format=3 uid="uid://bmucd040b3gon"]
+
+[ext_resource type="Texture2D" uid="uid://c381pnygc4gho" path="res://stone.png" id="1_xnxde"]
+
+[resource]
+id = 2
+name = "Silly Stone"
+tex_top = ExtResource("1_xnxde")
+tex_bottom = ExtResource("1_xnxde")
+tex_left = ExtResource("1_xnxde")
+tex_right = ExtResource("1_xnxde")
+tex_front = ExtResource("1_xnxde")
+tex_back = ExtResource("1_xnxde")

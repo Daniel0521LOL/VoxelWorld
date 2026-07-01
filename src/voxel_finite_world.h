@@ -4,9 +4,18 @@
 #include "block_registry.h"
 #include "chunk_data.h"
 #include "chunk_mesher.h"
-#include "chunk_node.h"
+#include "greedy_chunk_mesher.h"
+#include "chunk_manager.h"
+#include "godot_cpp/classes/texture2d_array.hpp"
 #include "godot_cpp/classes/fast_noise_lite.hpp"
 #include "godot_cpp/classes/material.hpp"
+#include "godot_cpp/classes/shader_material.hpp"
+#include "godot_cpp/classes/world3d.hpp"
+#include "godot_cpp/classes/window.hpp"
+#include "godot_cpp/classes/scene_tree.hpp"
+#include "godot_cpp/classes/node3d.hpp"
+#include "godot_cpp/classes/visual_shader_node_vec2_constant.hpp"
+#include "godot_cpp/variant/vector3i.hpp"
 #include "world_data.h"
 
 using namespace godot;
@@ -17,13 +26,16 @@ class VoxelFiniteWorld : public Node3D {
 	GDCLASS(VoxelFiniteWorld, Node3D)
 
 	public:
-	VoxelFiniteWorld() = default;
+	VoxelFiniteWorld();
 	~VoxelFiniteWorld() override = default;
 
-	void set_material(Ref<Material> p_material);
-	Ref<Material> get_material() const;
+	void _ready() override;
 
-	void generate_world(Ref<BlockRegistry> p_block_registry);
+	void set_material(Ref<ShaderMaterial> p_material);
+	Ref<ShaderMaterial> get_material() const;
+
+	void set_block_registry(Ref<BlockRegistry> p_block_registry);
+	Ref<BlockRegistry> get_block_registry() const;
 
 	Ref<WorldData> get_world_data() const {
 		return world_data;
@@ -35,13 +47,16 @@ class VoxelFiniteWorld : public Node3D {
 	private:
 	const Vector3i WORLD_SIZE = Vector3i(8, 4, 8);
 
+	Ref<ShaderMaterial> material;
 	Ref<WorldData> world_data;
-	HashMap<Vector3i, VoxelChunk *> chunks = HashMap<Vector3i, VoxelChunk *>();
-	Ref<Material> material;
-	Ref<ChunkMesher> mesher;
-	Ref<FastNoiseLite> noise;
-
-	void update_material();
+  Ref<ChunkMesher> mesher;	
+	HashMap<Vector3i, Ref<ChunkManager>> chunks{};
+  Ref<BlockRegistry> block_registry;
+	
+	Ref<WorldData> generate_world(const Vector3i world_size); // TODO: Make WorldGenerator a standalone component
+	void initialize_chunks();
+	void update_chunk(const Vector3i chunk_coord);	
+  void update_all_chunks();
 };
 
 } // namespace voxxel

@@ -1,0 +1,13 @@
+[gd_resource type="BlockDefinition" format=3 uid="uid://ka8745vwcr1u"]
+
+[ext_resource type="Texture2D" uid="uid://c381pnygc4gho" path="res://stone.png" id="1_woqvj"]
+
+[resource]
+id = 1
+name = "Stone"
+tex_top = ExtResource("1_woqvj")
+tex_bottom = ExtResource("1_woqvj")
+tex_left = ExtResource("1_woqvj")
+tex_right = ExtResource("1_woqvj")
+tex_front = ExtResource("1_woqvj")
+tex_back = ExtResource("1_woqvj")

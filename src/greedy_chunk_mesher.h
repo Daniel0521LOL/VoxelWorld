@@ -16,7 +16,7 @@ class GreedyChunkMesher : public ChunkMesher {
 	GreedyChunkMesher() = default;
 	~GreedyChunkMesher() override = default;
 	Ref<Mesh> mesh_chunk(const Ref<ChunkData> &p_data) override;
-	void set_block_registry(const Ref<BlockRegistry> &p_registry);
+	void set_block_registry(const Ref<BlockRegistry> &p_registry) override;
 
 	protected:
 	static void _bind_methods();
