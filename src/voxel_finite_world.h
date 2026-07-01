@@ -45,7 +45,7 @@ class VoxelFiniteWorld : public Node3D {
 	static void _bind_methods();
 
 	private:
-	const Vector3i WORLD_SIZE = Vector3i(8, 4, 8);
+	const Vector3i WORLD_SIZE = Vector3i(32, 4, 32);
 
 	Ref<ShaderMaterial> material;
 	Ref<WorldData> world_data;
